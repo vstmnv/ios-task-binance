@@ -54,13 +54,13 @@ extension MarketDetailsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let detailsCell = tableView.dequeueReusableCell(withIdentifier: MarketDetailsTableViewCell.reuseIdentifier)
-        let detailsCellViewModel = viewModel.cellViewModel(for: indexPath.row)
+        let row = viewModel.row(at: indexPath.row)
 
-        guard let detailsCell = detailsCell as? MarketDetailsTableViewCell, let detailsCellViewModel else {
+        guard let detailsCell = detailsCell as? MarketDetailsTableViewCell, let row else {
             return UITableViewCell()
         }
 
-        detailsCell.configure(with: detailsCellViewModel)
+        detailsCell.configure(with: row)
         return detailsCell
     }
 }

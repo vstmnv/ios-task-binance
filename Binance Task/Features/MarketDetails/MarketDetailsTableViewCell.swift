@@ -14,8 +14,8 @@ final class MarketDetailsTableViewCell: UITableViewCell {
     @IBOutlet private weak var keyLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
     
-    func configure(with cellViewModel: MarketDetailsCellViewModel) {
-        keyLabel.text = cellViewModel.key
-        valueLabel.text = cellViewModel.value
+    func configure(with row: MarketDetailsRow) {
+        keyLabel.text = row.title
+        valueLabel.text = row.value
     }
 }

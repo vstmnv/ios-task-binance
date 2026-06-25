@@ -9,9 +9,15 @@ import Foundation
 
 final class MarketListCellViewModel {
     
-    let symbolMarketData: SymbolMarketResponse
+    let symbol: String
+    let priceChangePercentage: String
+    let bidPrice: String
+    let askPrice: String
     
     init(symbolMarketData: SymbolMarketResponse) {
-        self.symbolMarketData = symbolMarketData
+        symbol = symbolMarketData.symbol
+        priceChangePercentage = symbolMarketData.priceChangePercent + " %"
+        bidPrice = symbolMarketData.bidPrice
+        askPrice = symbolMarketData.askPrice
     }
 }

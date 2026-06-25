@@ -18,7 +18,7 @@ final class MarketDetailsViewModel {
     weak var delegate: MarketDetailsViewModelDelegate?
 
     private let apiService: APIService
-    private var rows: [MarketDetailsCellViewModel] = []
+    private var rows: [MarketDetailsRow] = []
 
     var title: String { symbol }
     var numberOfRows: Int { rows.count }
@@ -30,7 +30,7 @@ final class MarketDetailsViewModel {
 
     // MARK: - Public
 
-    func cellViewModel(for index: Int) -> MarketDetailsCellViewModel? {
+    func row(at index: Int) -> MarketDetailsRow? {
         guard rows.indices.contains(index) else {
             return nil
         }
@@ -40,7 +40,7 @@ final class MarketDetailsViewModel {
     func fetchDetails() async {
         do {
             let response = try await apiService.fetch(SymbolMarketDetailsEndpoint(symbol: symbol))
-            rows = Self.makeRows(from: response)
+            rows = makeRows(from: response)
             delegate?.viewModelDidUpdateDetails(self)
         } catch {
             delegate?.viewModel(self, didFailWith: error)
@@ -49,8 +49,8 @@ final class MarketDetailsViewModel {
 
     // MARK: - Private
 
-    private static func makeRows(from response: SymbolMarketResponse) -> [MarketDetailsCellViewModel] {
-        let fields: [(label: String, value: String)] = [
+    private func makeRows(from response: SymbolMarketResponse) -> [MarketDetailsRow] {
+        let fields: [(title: String, value: String)] = [
             ("Symbol", response.symbol),
             ("Price Change", response.priceChange),
             ("Price Change %", response.priceChangePercent),
@@ -67,12 +67,12 @@ final class MarketDetailsViewModel {
             ("Low Price", response.lowPrice),
             ("Volume", response.volume),
             ("Quote Volume", response.quoteVolume),
-            ("Open Time", String(response.openTime)),
-            ("Close Time", String(response.closeTime)),
+            ("Open Time", Date(millisecondsSince1970: response.openTime).marketTimestamp),
+            ("Close Time", Date(millisecondsSince1970: response.closeTime).marketTimestamp),
             ("First ID", String(response.firstId)),
             ("Last ID", String(response.lastId)),
             ("Trade Count", String(response.count)),
         ]
-        return fields.map { MarketDetailsCellViewModel(key: $0.label, value: $0.value) }
+        return fields.map { MarketDetailsRow(title: $0.title, value: $0.value) }
     }
 }

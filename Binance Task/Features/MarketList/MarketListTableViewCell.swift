@@ -19,9 +19,9 @@ final class MarketListTableViewCell: UITableViewCell {
     // MARK: - Public
     
     func configure(with viewModel: MarketListCellViewModel) {
-        symbolLabel.text = viewModel.symbolMarketData.symbol
-        priceChangeLabel.text = viewModel.symbolMarketData.priceChangePercent
-        bidPriceLabel.text = viewModel.symbolMarketData.bidPrice
-        askPriceLabel.text = viewModel.symbolMarketData.askPrice
+        symbolLabel.text = viewModel.symbol
+        priceChangeLabel.text = viewModel.priceChangePercentage
+        bidPriceLabel.text = viewModel.bidPrice
+        askPriceLabel.text = viewModel.askPrice
     }
 }
