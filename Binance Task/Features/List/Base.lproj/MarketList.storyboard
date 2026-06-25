@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Market List View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MarketListViewController" customModule="Binance_Task" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="vKy-m6-RZb">
+                                <rect key="frame" x="0.0" y="118" width="393" height="64"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Kyy-7Y-URA"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Uut-7w-4i7">
+                                <rect key="frame" x="0.0" y="182" width="393" height="670"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarketListTableViewCell" id="Zwx-CW-hKM" customClass="MarketListTableViewCell" customModule="Binance_Task" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="83.333335876464844"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zwx-CW-hKM" id="RGX-bS-E1j">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="83.333335876464844"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BTCUSDC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cP-K6-1WQ">
+                                                    <rect key="frame" x="16" y="16.000000000000004" width="85.333333333333329" height="51.333333333333343"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRE-7t-0aV">
+                                                    <rect key="frame" x="325" y="31" width="52" height="21.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="8cP-K6-1WQ" secondAttribute="bottom" constant="16" id="6xU-aK-fzp"/>
+                                                <constraint firstItem="LRE-7t-0aV" firstAttribute="top" secondItem="RGX-bS-E1j" secondAttribute="topMargin" constant="16" id="FjT-Ib-3bt"/>
+                                                <constraint firstItem="8cP-K6-1WQ" firstAttribute="top" secondItem="RGX-bS-E1j" secondAttribute="top" constant="16" id="PhO-Gm-vap"/>
+                                                <constraint firstAttribute="trailing" secondItem="LRE-7t-0aV" secondAttribute="trailing" constant="16" id="jX1-VS-gfr"/>
+                                                <constraint firstItem="LRE-7t-0aV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8cP-K6-1WQ" secondAttribute="trailing" constant="8" id="n7y-9Y-wZB"/>
+                                                <constraint firstItem="8cP-K6-1WQ" firstAttribute="leading" secondItem="RGX-bS-E1j" secondAttribute="leading" constant="16" id="qeD-WH-06D"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LRE-7t-0aV" secondAttribute="bottom" constant="16" id="sKl-81-5u2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lastPriceLabel" destination="LRE-7t-0aV" id="O9J-cp-uwk"/>
+                                            <outlet property="symbolLabel" destination="8cP-K6-1WQ" id="Ml8-gK-g5k"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="1rT-es-Wlo"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Xvs-8z-El7"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Uut-7w-4i7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8nk-Ny-1rI"/>
+                            <constraint firstAttribute="bottom" secondItem="Uut-7w-4i7" secondAttribute="bottom" id="Lm5-Hb-65W"/>
+                            <constraint firstItem="Uut-7w-4i7" firstAttribute="top" secondItem="vKy-m6-RZb" secondAttribute="bottom" id="ZoD-0y-b9Q"/>
+                            <constraint firstItem="Uut-7w-4i7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="eV3-1T-aw2"/>
+                            <constraint firstItem="vKy-m6-RZb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ngp-n4-iqZ"/>
+                            <constraint firstAttribute="trailing" secondItem="vKy-m6-RZb" secondAttribute="trailing" id="ooI-sl-N1Z"/>
+                            <constraint firstItem="vKy-m6-RZb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zGL-fX-x7U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="vKy-m6-RZb" id="mHb-cP-r6z"/>
+                        <outlet property="tableView" destination="Uut-7w-4i7" id="JyF-4g-1h9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138.1679389312977" y="130.98591549295776"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

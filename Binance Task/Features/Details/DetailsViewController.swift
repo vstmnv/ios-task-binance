@@ -5,4 +5,8 @@
 //  Created by Vesela Stamenova on 25.06.26.
 //
 
-import Foundation
+import UIKit
+
+final class DetailsViewController: UIViewController {
+    
+}
