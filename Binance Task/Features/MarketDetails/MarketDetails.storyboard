@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XGc-rw-EaZ">
-                                <rect key="frame" x="0.0" y="118" width="393" height="734"/>
+                                <rect key="frame" x="0.0" y="126" width="393" height="726"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarketDetailsTableViewCell" id="MgD-hW-inQ" customClass="MarketDetailsTableViewCell" customModule="Binance_Task" customModuleProvider="target">
@@ -64,20 +64,29 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="LrU-zq-7nm">
                                 <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Var-6R-89h">
+                                <rect key="frame" x="196.66666666666666" y="118" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="systemGray2Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="XGc-rw-EaZ" secondAttribute="bottom" id="AAg-2P-OO8"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="XGc-rw-EaZ" secondAttribute="trailing" id="BLI-oX-RjP"/>
-                            <constraint firstItem="XGc-rw-EaZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Jqp-ef-jWf"/>
+                            <constraint firstItem="Var-6R-89h" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="JKt-YK-IyM"/>
+                            <constraint firstItem="XGc-rw-EaZ" firstAttribute="top" secondItem="Var-6R-89h" secondAttribute="bottom" constant="8" id="YT8-cw-GpQ"/>
                             <constraint firstItem="LrU-zq-7nm" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="Yr6-IL-l3O"/>
                             <constraint firstItem="LrU-zq-7nm" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="fkg-ua-2Lz"/>
+                            <constraint firstItem="Var-6R-89h" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="nat-76-wYy"/>
                             <constraint firstItem="XGc-rw-EaZ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="uHC-hr-Ibp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="LrU-zq-7nm" id="CNJ-n4-GJw"/>
+                        <outlet property="lastUpdatedLabel" destination="Var-6R-89h" id="qhp-bQ-rrE"/>
                         <outlet property="tableView" destination="XGc-rw-EaZ" id="9m5-RN-1YJ"/>
                     </connections>
                 </viewController>
@@ -89,6 +98,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

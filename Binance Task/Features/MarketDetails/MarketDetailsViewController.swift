@@ -11,6 +11,7 @@ final class MarketDetailsViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var lastUpdatedLabel: UILabel!
     
     private let viewModel: MarketDetailsViewModel
 
@@ -30,18 +31,32 @@ final class MarketDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.title
+        
+        title = viewModel.symbol
         viewModel.delegate = self
         activityIndicator.startAnimating()
-        Task {
-            await viewModel.fetchDetails()
-            activityIndicator.stopAnimating()
-        }
+        
+        setupTableView()
+        fetchData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    // MARK: - Private
+    
+    private func setupTableView() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(fetchData), for: .valueChanged)
+    }
+    
+    @objc private func fetchData() {
+        Task {
+            await viewModel.fetchDetails()
+            activityIndicator.stopAnimating()
+        }
     }
 }
 
@@ -70,15 +85,7 @@ extension MarketDetailsViewController: UITableViewDataSource {
 extension MarketDetailsViewController: MarketDetailsViewModelDelegate {
     func viewModelDidUpdateDetails(_ viewModel: MarketDetailsViewModel) {
         tableView.reloadData()
-    }
-
-    func viewModel(_ viewModel: MarketDetailsViewModel, didFailWith error: Error) {
-        let alert = UIAlertController(
-            title: "Couldn't load details",
-            message: error.localizedDescription,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        tableView.refreshControl?.endRefreshing()
+        lastUpdatedLabel.text = viewModel.lastUpdatedLabel
     }
 }

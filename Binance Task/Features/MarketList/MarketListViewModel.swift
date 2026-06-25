@@ -60,12 +60,12 @@ final class MarketListViewModel {
         return MarketListCellViewModel(symbolMarketData: data[index])
     }
 
-    func symbol(at index: Int) -> String? {
+    func symbolMarketData(at index: Int) -> SymbolMarketResponse? {
         let data = displayedData
         guard data.indices.contains(index) else {
             return nil
         }
-        return data[index].symbol
+        return data[index]
     }
 
     func filter(by text: String?) {

@@ -20,6 +20,7 @@ final class MarketListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewModel.delegate = self
         activityIndicator.startAnimating()
         
@@ -79,13 +80,16 @@ extension MarketListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let symbol = viewModel.symbol(at: indexPath.row) else {
+        guard let symbolMarketData = viewModel.symbolMarketData(at: indexPath.row) else {
             return
         }
 
         let storyboard = UIStoryboard(name: "MarketDetails", bundle: nil)
         let detailsViewController = storyboard.instantiateInitialViewController { coder in
-            MarketDetailsViewController(coder: coder, viewModel: MarketDetailsViewModel(symbol: symbol))
+            MarketDetailsViewController(
+                coder: coder,
+                viewModel: MarketDetailsViewModel(symbolMarketData: symbolMarketData)
+            )
         }
         
         guard let detailsViewController else {

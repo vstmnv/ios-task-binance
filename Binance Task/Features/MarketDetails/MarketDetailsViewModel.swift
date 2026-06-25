@@ -9,22 +9,29 @@ import Foundation
 
 protocol MarketDetailsViewModelDelegate: AnyObject {
     func viewModelDidUpdateDetails(_ viewModel: MarketDetailsViewModel)
-    func viewModel(_ viewModel: MarketDetailsViewModel, didFailWith error: Error)
 }
 
 final class MarketDetailsViewModel {
 
-    let symbol: String
     weak var delegate: MarketDetailsViewModelDelegate?
 
     private let apiService: APIService
     private var rows: [MarketDetailsRow] = []
-
-    var title: String { symbol }
+    private let symbolMarketData: SymbolMarketResponse
+    private var lastUpdatedDate: Date?
+    
+    var symbol: String { symbolMarketData.symbol }
     var numberOfRows: Int { rows.count }
-
-    init(symbol: String, apiService: APIService = APIService(baseURL: APIConstants.baseURL)) {
-        self.symbol = symbol
+    var lastUpdatedLabel: String {
+        guard let lastUpdatedDate else {
+            return "You're currently offline"
+        }
+        
+        return "Last updated: \(lastUpdatedDate.formatted(date: .abbreviated, time: .complete))"
+    }
+    
+    init(symbolMarketData: SymbolMarketResponse, apiService: APIService = APIService(baseURL: APIConstants.baseURL)) {
+        self.symbolMarketData = symbolMarketData
         self.apiService = apiService
     }
 
@@ -38,13 +45,12 @@ final class MarketDetailsViewModel {
     }
 
     func fetchDetails() async {
-        do {
-            let response = try await apiService.fetch(SymbolMarketDetailsEndpoint(symbol: symbol))
-            rows = makeRows(from: response)
-            delegate?.viewModelDidUpdateDetails(self)
-        } catch {
-            delegate?.viewModel(self, didFailWith: error)
-        }
+        let response = try? await apiService.fetch(SymbolMarketDetailsEndpoint(symbol: symbol))
+        let data = response ?? symbolMarketData
+        
+        lastUpdatedDate = response != nil ? Date() : lastUpdatedDate
+        rows = makeRows(from: data)
+        delegate?.viewModelDidUpdateDetails(self)
     }
 
     // MARK: - Private
