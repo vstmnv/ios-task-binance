@@ -60,6 +60,14 @@ final class MarketListViewModel {
         return MarketListCellViewModel(symbolMarketData: data[index])
     }
 
+    func symbol(at index: Int) -> String? {
+        let data = displayedData
+        guard data.indices.contains(index) else {
+            return nil
+        }
+        return data[index].symbol
+    }
+
     func filter(by text: String?) {
         query = (text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         delegate?.viewModelDidUpdateList(self)

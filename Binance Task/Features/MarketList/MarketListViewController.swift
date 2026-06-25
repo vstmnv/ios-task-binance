@@ -28,6 +28,11 @@ final class MarketListViewController: UIViewController {
         fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     // MARK: - Private
     
     private func setupTableView() {
@@ -71,7 +76,24 @@ extension MarketListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension MarketListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let symbol = viewModel.symbol(at: indexPath.row) else {
+            return
+        }
+
+        let storyboard = UIStoryboard(name: "MarketDetails", bundle: nil)
+        let detailsViewController = storyboard.instantiateInitialViewController { coder in
+            MarketDetailsViewController(coder: coder, viewModel: MarketDetailsViewModel(symbol: symbol))
+        }
+        
+        guard let detailsViewController else {
+            return
+        }
+
+        navigationController?.pushViewController(detailsViewController, animated: true)
+    }
 }
 
 // MARK: - UISearchBarDelegate
