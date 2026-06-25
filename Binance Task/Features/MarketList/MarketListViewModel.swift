@@ -18,12 +18,21 @@ final class MarketListViewModel {
     weak var delegate: MarketListViewModelDelegate?
     
     private var marketData: [SymbolMarketResponse] = []
+    private var lastUpdatedDate: Date?
     private var query: String = ""
 
     var displayedData: [SymbolMarketResponse] {
         query.isEmpty
             ? marketData
             : marketData.filter { $0.symbol.lowercased().contains(query) }
+    }
+    
+    var lastUpdatedLabel: String {
+        guard let lastUpdatedDate else {
+            return ""
+        }
+        
+        return "Last updated: \(lastUpdatedDate.formatted(date: .abbreviated, time: .complete))"
     }
     
     init(apiService: APIService = APIService(baseURL: APIConstants.baseURL)) {
@@ -35,6 +44,7 @@ final class MarketListViewModel {
     func fetchMarketData() async {
         do {
             marketData = try await apiService.fetch(SymbolMarketListEndpoint())
+            lastUpdatedDate = Date()
             delegate?.viewModelDidUpdateList(self)
         } catch {
             delegate?.viewModel(self, didFailWith: error)

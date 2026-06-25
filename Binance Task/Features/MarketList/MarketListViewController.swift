@@ -11,6 +11,8 @@ final class MarketListViewController: UIViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var lastUpdatedLabel: UILabel!
     
     private let viewModel = MarketListViewModel()
     
@@ -19,6 +21,7 @@ final class MarketListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
+        activityIndicator.startAnimating()
         
         setupTableView()
         setupSearchBar()
@@ -40,6 +43,7 @@ final class MarketListViewController: UIViewController {
     @objc private func fetchData() {
         Task {
             await viewModel.fetchMarketData()
+            activityIndicator.stopAnimating()
         }
     }
 }
@@ -99,6 +103,7 @@ extension MarketListViewController: MarketListViewModelDelegate {
     func viewModelDidUpdateList(_ viewModel: MarketListViewModel) {
         tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
+        lastUpdatedLabel.text = viewModel.lastUpdatedLabel
     }
 
     func viewModel(_ viewModel: MarketListViewModel, didFailWith error: Error) {
