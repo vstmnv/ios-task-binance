@@ -30,7 +30,7 @@ final class MarketDetailsViewModel {
         return "Last updated: \(lastUpdatedDate.formatted(date: .abbreviated, time: .complete))"
     }
     
-    init(symbolMarketData: SymbolMarketResponse, apiService: APIService = APIService(baseURL: APIConstants.baseURL)) {
+    init(symbolMarketData: SymbolMarketResponse, apiService: APIService = APIService()) {
         self.symbolMarketData = symbolMarketData
         self.apiService = apiService
     }

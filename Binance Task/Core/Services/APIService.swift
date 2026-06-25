@@ -14,7 +14,7 @@ final class APIService {
     private let decoder: JSONDecoder
     
     init(
-        baseURL: URL,
+        baseURL: URL = APIConstants.baseURL,
         session: URLSession = .shared,
         decoder: JSONDecoder = JSONDecoder()
     ) {

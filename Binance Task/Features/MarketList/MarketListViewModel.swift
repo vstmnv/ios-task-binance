@@ -35,7 +35,7 @@ final class MarketListViewModel {
         return "Last updated: \(lastUpdatedDate.formatted(date: .abbreviated, time: .complete))"
     }
     
-    init(apiService: APIService = APIService(baseURL: APIConstants.baseURL)) {
+    init(apiService: APIService = APIService()) {
         self.apiService = apiService
     }
     
